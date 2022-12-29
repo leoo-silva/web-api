@@ -2,7 +2,7 @@
 {
     public class PessoaInfo
     {
-        private DateTime anoAtual = DateTime.Now;
+        private DateTime dataAtual = DateTime.Now;
         private string cpf;
         private string nome;
         private string profissao;
@@ -14,7 +14,7 @@
 
         public int GetIdade()
         {
-            return this.anoAtual.Year - this.dataNascimento.Year;
+            return this.dataAtual.Year - this.dataNascimento.Year;
         }
 
         public string GetCpf()
@@ -90,7 +90,7 @@
         public void SetIdade(DateTime valor)
         {
             int ano = valor.Year;
-            this.idade = this.anoAtual.Year - ano;
+            this.idade = this.dataAtual.Year - ano;
         }
     }
 }
