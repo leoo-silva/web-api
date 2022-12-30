@@ -19,7 +19,7 @@ namespace web.Entities.Pessoa.DAO
             {
                 using (conn = ConnectionFactory.GetConnection())
                 {
-                    string sql = "select * from pessoas";
+                    string sql = "select * from pessoas order by nome";
                     using (cmd = new MySqlCommand(sql, conn))
                     {
                         using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -55,6 +55,48 @@ namespace web.Entities.Pessoa.DAO
                 }
             }
             return list;
+        }
+
+        // método insert (insere dados digitados pelo usuário)
+        public void InsertInto(PessoaInfo pessoa)
+        {
+            try
+            {
+                using (conn = ConnectionFactory.GetConnection())
+                {
+                    string sql = "insert into pessoas" +
+                        "(cpf, nome, profissao, nacionalidade, data_nascimento, peso, altura, idade)" +
+                        "values" +
+                        "(?, ?, ?, ?, ?, ?, ?, ?)";
+                    using (cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("cpf", pessoa.GetCpf());
+                        cmd.Parameters.AddWithValue("nome", pessoa.GetNome().ToUpper());
+                        cmd.Parameters.AddWithValue("profissao", pessoa.GetProfissao().ToUpper());
+                        cmd.Parameters.AddWithValue("nacionalidade", pessoa.GetNacionalidade().ToUpper());
+                        cmd.Parameters.AddWithValue("data_nascimento", pessoa.GetDataNascimentoUS());
+                        cmd.Parameters.AddWithValue("peso", pessoa.GetPeso().ToString().Replace(",", "."));
+                        cmd.Parameters.AddWithValue("altura", pessoa.GetAltura().ToString().Replace(",", "."));
+                        cmd.Parameters.AddWithValue("idade", pessoa.GetIdade());
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (MySqlException erro)
+            {
+                throw new PessoaException("O CPF digitado já está cadastrado.");
+            }
+            catch (Exception erro)
+            {
+                throw new PessoaException("" + erro);
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
         }
     }
 }

@@ -6,7 +6,7 @@
 
 <h1 class="titulo">Pessoas Cadastradas</h1>
 <br />
-<a class="btn btn-primary btn-sm" href="#">Novo Cadastro</a>
+<a class="btn btn-primary btn-sm" href="/Cadastrar">Novo Cadastro</a>
 
 <table class="table">
     <thead>
@@ -27,14 +27,14 @@
         @foreach (var item in Model.list)
         {
             <tr>
-                <td>@item.GetCpf()</td>
+                <td>@item.FormatCPF()</td>
                 <td>@item.GetNome()</td>
                 <td>@item.GetProfissao()</td>
                 <td>@item.GetNacionalidade()</td>
                 <td>@item.GetDataNascimento()</td>
                 <td>@item.GetIdade()</td>
-                <td>@item.GetPeso()</td>
-                <td>@item.GetAltura()</td>
+                <td>@item.GetPeso().ToString().Replace(".", ",")</td>
+                <td>@item.GetAltura().ToString().Replace(".", ",")</td>
                 <td>
                     <a class="btn btn-primary btn-sm" href="#">Editar</a>
                     <a class="btn btn-danger btn-sm" href="#">Deletar</a>
@@ -42,4 +42,10 @@
             </tr>
         }
     </tbody>
+
 </table>
+
+@if (Model.list.Count() == 0)
+{
+    <h5 class="msg">NENHUMA PESSOA CADASTRADA.</h5>
+}

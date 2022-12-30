@@ -1,0 +1,88 @@
+﻿@page
+@model web.Pages.CadastrarModel
+@{
+    ViewData["Title"] = "Cadastrar";
+}
+
+<h1 class="titulo">Cadastro</h1>
+<br />
+
+@if (Model.errorMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form method="post">
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">CPF</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="cpf" value="@Model.pessoa.GetCpf()" placeholder="Digite somente os números do seu CPF"/>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Nome</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="nome" value="@Model.pessoa.GetNome()" placeholder="Digite aqui seu nome"/>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Profissão</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="profissao" value="@Model.pessoa.GetProfissao()" placeholder="Digite aqui sua profissão"/>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Nacionalidade</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="nacionalidade" value="@Model.pessoa.GetNacionalidade()" placeholder="Digite aqui sua nacionalidade"/>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Data de Nascimento</label>
+        <div class="col-sm-6">
+            <input type="date" class="form-control" name="dataNascimento" value="@Model.pessoa.GetDataNascimento()"/>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Peso</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="peso" value="@Model.pessoa.GetPeso()" placeholder="Digite seu peso (casas decimais separados por vírgula '62,5')"/>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Altura</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="altura" value="@Model.pessoa.GetAltura()" placeholder="Digite sua altura (casas decimais separados por vírgula '1,82')"/>
+        </div>
+    </div>
+
+    @if (Model.successMessage.Length > 0)
+    {
+        <div class="row mb-3">
+            <div class="col-sm-9">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>@Model.successMessage</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row mb-3">
+        <div class="offset-sm-3 col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/Listagem" role="button">Cancelar</a>
+        </div>
+    </div>
+</form>
