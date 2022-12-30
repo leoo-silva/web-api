@@ -98,5 +98,34 @@ namespace web.Entities.Pessoa.DAO
                 }
             }
         }
+
+        // método delete (deleta o cliente através do cpf)
+        public void Delete(string cpf)
+        {
+            try
+            {
+                using (conn = ConnectionFactory.GetConnection())
+                {
+                    string sql = "delete from pessoas where cpf=?";
+                    using (cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("cpf", cpf);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception erro)
+            {
+                throw new PessoaException("Error: " + erro.Message);
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+        }
     }
 }

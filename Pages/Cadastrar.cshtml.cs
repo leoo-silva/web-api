@@ -96,7 +96,6 @@ namespace web.Pages
                 return;
             }
             this.successMessage = "Pessoa Cadastrada com Sucesso.";
-            // fazer commit (Criação da funcionalidade - cadastrar pessoa)
         }
     }
 }

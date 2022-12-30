@@ -37,7 +37,7 @@
                 <td>@item.GetAltura().ToString().Replace(".", ",")</td>
                 <td>
                     <a class="btn btn-primary btn-sm" href="#">Editar</a>
-                    <a class="btn btn-danger btn-sm" href="#">Deletar</a>
+                    <a class="btn btn-danger btn-sm" href="/Deletar?cpf=@item.GetCpf()">Deletar</a>
                 </td>
             </tr>
         }

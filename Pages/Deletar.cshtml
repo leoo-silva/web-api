@@ -1,0 +1,22 @@
+﻿@page
+@using web.Entities.Pessoa.DAO;
+@using web.Entities.Pessoa.Model;
+@using web.Entities.PException;
+
+
+@{
+    PessoaDAO dao;
+    try
+    {
+        string cpf = Request.Query["cpf"];
+
+        dao = new PessoaDAO();
+        dao.Delete(cpf);
+    }
+    catch (Exception erro)
+    {
+        throw new PessoaException("Error: " + erro.Message);
+    }
+
+    Response.Redirect("/Index");
+}
