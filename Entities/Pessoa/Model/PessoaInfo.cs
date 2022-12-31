@@ -17,7 +17,7 @@ namespace web.Entities.Pessoa.Model
 
         public bool LengthCampos()
         {
-            if (this.LengthCpf() || this.LengthNome() || this.LengthProfissao() || this.LengthNacionalidade() || this.peso == 0 || this.altura == 0)
+            if (this.LengthNome() || this.LengthProfissao() || this.LengthNacionalidade() || this.peso == 0 || this.altura == 0)
             {
                 return true;
             }
@@ -60,9 +60,9 @@ namespace web.Entities.Pessoa.Model
             return false;
         }
 
-        private bool LengthCpf()
+        public bool LengthCpf()
         {
-            if (this.cpf.Length < 11 || this.cpf.Length > 11)
+            if (!(this.cpf.Length == 11))
             {
                 return true;
             }

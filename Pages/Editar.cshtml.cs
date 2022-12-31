@@ -2,29 +2,37 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using web.Entities.Pessoa.Model;
 using web.Entities.Pessoa.DAO;
-using web.Entities.Factory;
 using web.Entities.PException;
-using System.Threading.Tasks;
 
 
 namespace web.Pages
 {
-    public class CadastrarModel : PageModel
+    public class EditarModel : PageModel
     {
+        private PessoaDAO dao = new PessoaDAO();
         public PessoaInfo pessoa = new PessoaInfo();
-        private PessoaDAO dao;
         public string errorMessage = "";
+        public string successMessage = "";
 
         public void OnGet()
         {
+            string cpf = Request.Query["cpf"];
 
+            try
+            {
+                pessoa = dao.SelectCPF(cpf);
+            }
+            catch (Exception erro)
+            {
+                this.errorMessage = erro.Message;
+            }
         }
 
         public void OnPost()
         {
             try
             {
-                pessoa.SetCpf(Request.Form["cpf"]);
+                pessoa.SetCpf(Request.Query["cpf"]);
                 pessoa.SetNome(Request.Form["nome"]);
                 pessoa.SetProfissao(Request.Form["profissao"]);
                 pessoa.SetNacionalidade(Request.Form["nacionalidade"]);
@@ -76,23 +84,20 @@ namespace web.Pages
                 return;
             }
 
-            if (pessoa.LengthCampos() || pessoa.LengthCpf())
+            if (pessoa.LengthCampos())
             {
                 this.errorMessage = "Algum campo não foi preenchido ou excedeu seu limite de caracteres. Tente Novamente.";
                 return;
             }
 
-
-            // salvando dados no banco caso não tenha erros
+            // salvando dados caso não haja erro
             try
             {
-                dao = new PessoaDAO();
-                dao.InsertInto(pessoa);
+                dao.Update(pessoa);
             }
             catch (Exception erro)
             {
                 this.errorMessage = erro.Message;
-                return;
             }
 
             Response.Redirect("/Listagem");
