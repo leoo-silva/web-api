@@ -1,0 +1,75 @@
+﻿@page
+@model web.Pages.PesquisaModel
+@{
+    ViewData["Title"] = "Pesquisa";
+}
+
+<h1 class="titulo">Pesquisa de Pessoa</h1>
+<br />
+
+@if (Model.errorMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (!Model.dados)
+{
+    <form method="post">
+    <p class="titulo">Para buscar os dados da pessoa desejada basta digitar o CPF contendo apenas números</p>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">CPF</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="cpf" placeholder="Digite somente os números do seu CPF"/>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="offset-sm-3 col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/Listagem" role="button">Cancelar</a>
+        </div>
+    </div>
+</form>
+} 
+else 
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CPF</th>
+                <th>Nome</th>
+                <th>Profissão</th>
+                <th>Nacionalidade</th>
+                <th>Data Nascimento</th>
+                <th>Idade</th>
+                <th>Peso</th>
+                <th>Altura</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>@Model.pessoa.GetCpf()</td>
+                <td>@Model.pessoa.GetNome()</td>
+                <td>@Model.pessoa.GetProfissao()</td>
+                <td>@Model.pessoa.GetNacionalidade()</td>
+                <td>@Model.pessoa.GetDataNascimento()</td>
+                <td>@Model.pessoa.GetIdade()</td>
+                <td>@Model.pessoa.GetPeso()</td>
+                <td>@Model.pessoa.GetAltura()</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/Editar?cpf=@Model.pessoa.GetCpf()">Editar</a>
+                    <a class="btn btn-danger btn-sm" href="/Deletar?cpf=@Model.pessoa.GetCpf()">Deletar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+

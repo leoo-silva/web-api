@@ -36,6 +36,10 @@ namespace web.Entities.Pessoa.DAO
                                 pessoa.SetPeso(reader.GetFloat(5));
                                 pessoa.SetAltura(reader.GetFloat(6));
                             }
+                            else
+                            {
+                                throw new PessoaException("CPF não cadastrado.");
+                            }
                         }
                     }
                 }
