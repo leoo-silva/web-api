@@ -4,5 +4,101 @@
     ViewData["Title"] = "Home";
 }
 
-<h1 class="titulo">Home</h1>
+<section class="main">
+
+    <!--título da página-->
+    <section id="banner">
+        <small>Home</small>
+    </section>
+
+    <!--ações-->
+    <section class="main">
+        <section id="icons">
+            <article>
+                <img alt="icon" id="img-icons" src="/css/lupa.png"/>
+                <h3>PESSOAS CADASTRADAS</h3>
+                <p>Nesta página do projeto é possível visualizar os dados de todas pessoas cadastradas no sistema,
+                    a partir disso selecionar uma pessoa atravé da funcionalidade "Ação" e deletar ou editar
+                    os dados desta pessoa.
+                </p>
+            </article>
+
+            <article>
+                <img alt="icon" id="img-icons" src="/css/pPessoas.png"/>
+                <h3>PESQUISAR PESSOAS</h3>
+                <p>Nesta página do projeto é possível buscar os dados de uma determinada pessoa atravé do CPF
+                    da mesma, digitando-o sem pontuações (111.111.111-11) somente números. Após é possível edita-los e
+                    deleta-los.
+                </p>
+            </article>
+
+            <article>
+                <img alt="icon" id="img-icons" src="/css/pProfissionais.png"/>
+                <h3>PESQUISAR PROFISSIONAIS</h3>
+                <p>Nesta página do projeto é possível buscar profissionais de determinada profissão, digitando o nome da
+                    profissão inteira ou somente as iniciais. Exemplo (Programador, Progra) será listado, todos os
+                    profissionais "Programador".
+                </p>
+            </article>
+
+            <article>
+                <img alt="icon" id="img-icons" src="/css/pDatas.png"/>
+                <h3>PESQUISAR DATAS</h3>
+                <p>Nesta página do projeto é possível buscar pessoas que nasceram entre determinadas datas digitadas.
+                    Por Exemplo (01-01-2000 até 01-01-2010) será listado os dados de todas as pessoas que nasceram entre
+                    as datas informadas.
+                </p>
+            </article>
+        </section>
+    </section> <br />
+
+    <section class="main">
+        <p id="msg">TODAS FUNCIONALIDADES SE ENCONTRAM NA PÁGINA "CADASTRADOS"</p>
+    </section>
+
+    <section class="main">
+        <p id="text-titulo">OBJETIVO</p>
+        <p>O objetivo deste projeto é aprimorar os conhecimento que possuo na linguagem (C#) e em banco de dados.
+            Resolvi desenvolver um CRUD em aplicação web, nunca tinha desenvolvido alguma outra aplicações web que
+            fazia conexão com o banco e listava os dados para o usuário. <br />
+            Criei algumas funcionalidades como (Listar todas as pessoas, Cadastrar uma nova pessoa, Pesquisar uma pessoa
+            através do CPF, Pesquisar uma pessoa de determinada profissão, Pesquisar pessoas que nasceram entre determinada
+            data, Validação de CPF, Formatação de CPF, Tratamento de Exceções...) ETC.
+        </p>
+
+        <p id="text-titulo">COMO FUNCIONA</p>
+        <p>Decidi fazer o projeto com o objeto "pessoas" tive algumas dificuldades em obter alguns dados da página
+            web e armazenar no banco (datas e tipos de dados inteiro ou de ponto flutuante).<br />
+            Tipos de dados trabalhados no projeto. <br />
+        </p>
+
+        <ol>
+            <ul>
+                <li>CPF - Solicitei que fosse obtido sem pontuações, somente números. 
+                    Realizei a validação do mesmo e exibição em formato padrão (111.111.111-11). Limite de caracteres de 11.
+                </li>
+                <li>Nome - Pode ser digitado de qualquer forma, tanto maiúscula quanto minúscula,
+                    sempre será salvo e exibido no formato maíusculo. Limite de caracteres de 50.
+                </li>
+                <li>Profissão - A mesma função que a propriedade Nome. Limite de caracteres de 50.</li>
+                <li>Nacionalidade - A mesma função que a propriedade Nome. Limite de caracteres de 30.</li>
+                <li>Data de Nascimento - Obtida no formato brasileiro (dia/mês/ano) e convertida no formato
+                    americano para ser armazenada no banco (ano/mês/dia). A data não pode ser maior que a data atual.
+                </li>
+                <li>Peso - Solicitado com separação de vígulas (45,6)</li>
+                <li>Altura - Solicitado com separação de vígulas (1,52)</li>
+                <li><span id="spn">Idade</span> - A idade não é um dado que pode ser digitado pelo usuário,
+                    ela é salva no banco de dados conforme a data de nascimento e exibida para o usuário. Quando
+                    uma pessoa altera a data de nascimento a idade também é alterada.</li>
+            </ul>
+        </ol>
+    </section>
+
+</section>
 <br />
+
+<footer class="border-top footer text-muted">
+<div class="container">
+    &copy; 2022 - Leonardo Ferreira - <a href="https://github.com/leoo-silva" target="_blank">GitHub</a>
+</div>
+</footer>
