@@ -10,11 +10,61 @@ namespace web.Entities.Pessoa.DAO
     {
         private MySqlConnection conn;
         private MySqlCommand cmd;
+        private PessoaInfo pessoa;
+
+        // método select like (busca pela profissão)
+        public List<PessoaInfo> SelectLike(string profissao)
+        {
+            List<PessoaInfo> list;
+            try
+            {
+                using (conn = ConnectionFactory.GetConnection())
+                {
+                    string sql = "select * from pessoas where profissao like ?";
+
+                    using (cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("profissao", "%" + profissao.ToUpper() + "%");
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            list = new List<PessoaInfo>();
+                            while (reader.Read())
+                            {
+                                this.pessoa = new PessoaInfo();
+                                pessoa.SetCpf(reader.GetString(0));
+                                pessoa.SetNome(reader.GetString(1));
+                                pessoa.SetProfissao(reader.GetString(2));
+                                pessoa.SetNacionalidade(reader.GetString(3));
+                                pessoa.SetDataNascimento(reader.GetDateTime(4));
+                                pessoa.SetPeso(reader.GetFloat(5));
+                                pessoa.SetAltura(reader.GetFloat(6));
+                                pessoa.SetIdade(reader.GetDateTime(4));
+
+                                list.Add(pessoa);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception erro)
+            {
+                throw new PessoaException("Erro: " + erro.Message);
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+            return list;
+        }
 
         // método select cpf (busca os dados através do cpf)
         public PessoaInfo SelectCPF(string cpf)
         {
-            PessoaInfo pessoa = new PessoaInfo();
             try
             {
                 using (conn = ConnectionFactory.GetConnection())
@@ -26,6 +76,7 @@ namespace web.Entities.Pessoa.DAO
 
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
+                            pessoa = new PessoaInfo();
                             if (reader.Read())
                             {
                                 pessoa.SetCpf(reader.GetString(0));
@@ -75,7 +126,7 @@ namespace web.Entities.Pessoa.DAO
                             list = new List<PessoaInfo>();
                             while (reader.Read())
                             {
-                                PessoaInfo pessoa = new PessoaInfo();
+                                this.pessoa = new PessoaInfo();
                                 pessoa.SetCpf(reader.GetString(0));
                                 pessoa.SetNome(reader.GetString(1));
                                 pessoa.SetProfissao(reader.GetString(2));

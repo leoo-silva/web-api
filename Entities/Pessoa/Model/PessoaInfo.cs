@@ -187,7 +187,7 @@ namespace web.Entities.Pessoa.Model
             {
                 if (this.cpf[count].ToString() == "-" || this.cpf[count] == '/')
                 {
-                    throw new PessoaException("Digite somente os números do seu CPF.");
+                    throw new PessoaException("Digite somente os números do CPF.");
                 }
             }
 

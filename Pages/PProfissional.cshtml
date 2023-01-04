@@ -1,0 +1,77 @@
+﻿@page
+@model web.Pages.PProfissionalModel
+@{
+    ViewData["Title"] = "Pesquisa";
+}
+
+<h1 class="titulo">Pesquisa de Profissional</h1>
+<br />
+
+@if (Model.errorMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (!Model.dados)
+{
+    <form method="post">
+    <p class="titulo">Para buscar profissionais desejados basta digitar a profissão e será listados todos com a devida profissão desejada.</p>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Profissão</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="profissao" placeholder="Digite a profissão ou apenas algumas letras da mesma"/>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="offset-sm-3 col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/Listagem" role="button">Cancelar</a>
+        </div>
+    </div>
+</form>
+} 
+else 
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CPF</th>
+                <th>Nome</th>
+                <th>Profissão</th>
+                <th>Nacionalidade</th>
+                <th>Data Nascimento</th>
+                <th>Idade</th>
+                <th>Peso</th>
+                <th>Altura</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.list)
+            {
+                <tr>
+                    <td>@item.FormatCPF()</td>
+                    <td>@item.GetNome()</td>
+                    <td>@item.GetProfissao()</td>
+                    <td>@item.GetNacionalidade()</td>
+                    <td>@item.GetDataNascimento()</td>
+                    <td>@item.GetIdade()</td>
+                    <td>@item.GetPeso().ToString().Replace(".", ",")</td>
+                    <td>@item.GetAltura().ToString().Replace(".", ",")</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="/Editar?cpf=@item.GetCpf()">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="/Deletar?cpf=@item.GetCpf()">Deletar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
