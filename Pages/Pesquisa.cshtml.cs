@@ -36,13 +36,18 @@ namespace web.Pages
             {
                 if (pessoa.ValidaCPF())
                 {
-                    errorMessage = "CPF Inválido";
+                    errorMessage = "Digite um CPF válido.";
                     return;
                 }
             }
             catch (ArgumentOutOfRangeException erro)
             {
                 this.errorMessage = "O CPF precisa ser preenchido corretamente.";
+                return;
+            }
+            catch (FormatException erro)
+            {
+                errorMessage = "Digite números válidos.";
                 return;
             }
             catch (Exception erro)

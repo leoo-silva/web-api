@@ -2,20 +2,74 @@
 using web.Entities.Pessoa.Model;
 using web.Entities.Factory;
 using web.Entities.PException;
+using web.Entities.Pessoa.Model;
 
 
 namespace web.Entities.Pessoa.DAO
 {
     public class PessoaDAO
     {
+        //fazer commit "Criação de funcionalidade pesquisa por data"
+        //fazer testes e revisar site
         private MySqlConnection conn;
         private MySqlCommand cmd;
         private PessoaInfo pessoa;
+        private List<PessoaInfo> list;
+
+        // método select between (busca pessoas entre as datas informadas)
+        public List<PessoaInfo> SelectBetween(PessoaBetween pessoa)
+        {
+            try
+            {
+                using (conn = ConnectionFactory.GetConnection())
+                {
+                    string sql = "select * from pessoas where data_nascimento between @start and @finish order by data_nascimento";
+
+                    using (cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@start", pessoa.GetDeUS());
+                        cmd.Parameters.AddWithValue("@finish", pessoa.GetAteUS());
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            PessoaInfo pessoaInfo;
+                            this.list = new List<PessoaInfo>();
+                            while (reader.Read())
+                            {
+                                pessoaInfo = new PessoaInfo();
+                                pessoaInfo.SetCpf(reader.GetString(0));
+                                pessoaInfo.SetNome(reader.GetString(1));
+                                pessoaInfo.SetProfissao(reader.GetString(2));
+                                pessoaInfo.SetNacionalidade(reader.GetString(3));
+                                pessoaInfo.SetDataNascimento(reader.GetDateTime(4));
+                                pessoaInfo.SetPeso(reader.GetFloat(5));
+                                pessoaInfo.SetAltura(reader.GetFloat(6));
+                                pessoaInfo.SetIdade(reader.GetDateTime(4));
+
+                                this.list.Add(pessoaInfo);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception erro)
+            {
+                throw new PessoaException("Error: " + erro.Message);
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+            return this.list;
+        }
 
         // método select like (busca pela profissão)
         public List<PessoaInfo> SelectLike(string profissao)
         {
-            List<PessoaInfo> list;
             try
             {
                 using (conn = ConnectionFactory.GetConnection())
@@ -28,7 +82,7 @@ namespace web.Entities.Pessoa.DAO
 
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            list = new List<PessoaInfo>();
+                            this.list = new List<PessoaInfo>();
                             while (reader.Read())
                             {
                                 this.pessoa = new PessoaInfo();
@@ -59,7 +113,7 @@ namespace web.Entities.Pessoa.DAO
                 }
             }
 
-            return list;
+            return this.list;
         }
 
         // método select cpf (busca os dados através do cpf)
@@ -97,7 +151,7 @@ namespace web.Entities.Pessoa.DAO
             }
             catch (Exception erro)
             {
-                throw new PessoaException("Error: " + erro.Message);
+                throw new PessoaException(erro.Message);
             }
             finally
             {
@@ -113,7 +167,6 @@ namespace web.Entities.Pessoa.DAO
         // método select (lista todos as pessoas cadastradas)
         public List<PessoaInfo> Select()
         {
-            List<PessoaInfo> list;
             try
             {
                 using (conn = ConnectionFactory.GetConnection())
@@ -123,7 +176,7 @@ namespace web.Entities.Pessoa.DAO
                     {
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            list = new List<PessoaInfo>();
+                            this.list = new List<PessoaInfo>();
                             while (reader.Read())
                             {
                                 this.pessoa = new PessoaInfo();
@@ -153,7 +206,7 @@ namespace web.Entities.Pessoa.DAO
                     conn.Close();
                 }
             }
-            return list;
+            return this.list;
         }
 
         // método insert (insere dados digitados pelo usuário)

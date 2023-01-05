@@ -28,8 +28,8 @@ body{
     margin-top: 10px;
     text-align: center;
     border-radius: 10px;
-    background-color: #b43b3b;
-    box-shadow: 4px 4px 4px 4px #b43b3b;
+    background-color: #B0E0E6;
+    box-shadow: 4px 4px 4px 4px #B0E0E6;
 }
 #banner small{
     line-height: 30px;
@@ -76,7 +76,7 @@ h3{
     text-align: center;
     margin-top: 2%;
     font-size: 23px;
-    background-color: rgb(172, 203, 204);
+    background-color: #696969;
     border-radius: 5px;
 }
 
