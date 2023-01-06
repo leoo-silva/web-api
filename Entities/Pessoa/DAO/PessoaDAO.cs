@@ -9,8 +9,6 @@ namespace web.Entities.Pessoa.DAO
 {
     public class PessoaDAO
     {
-        //fazer commit "Criação de funcionalidade pesquisa por data"
-        //fazer testes e revisar site
         private MySqlConnection conn;
         private MySqlCommand cmd;
         private PessoaInfo pessoa;

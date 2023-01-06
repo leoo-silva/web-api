@@ -55,7 +55,7 @@ namespace web.Pages
             {
                 if (pessoa.ValidaCPF())
                 {
-                    errorMessage = "CPF Inválido";
+                    errorMessage = "CPF inválido.";
                     return;
                 }
             }
@@ -79,6 +79,12 @@ namespace web.Pages
             if (pessoa.LengthCampos() || pessoa.LengthCpf())
             {
                 this.errorMessage = "Algum campo não foi preenchido ou excedeu seu limite de caracteres. Tente Novamente.";
+                return;
+            }
+
+            if (pessoa.GetDataNascimentoUS() == "0001-01-01")
+            {
+                this.errorMessage = "Preencha a data de nascimento corretamente.";
                 return;
             }
 

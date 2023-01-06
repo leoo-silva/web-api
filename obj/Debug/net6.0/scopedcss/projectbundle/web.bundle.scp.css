@@ -41,9 +41,9 @@ button.accept-policy[b-wppen7gozd] {
 }
 
 .footer[b-wppen7gozd] {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    margin-top: 1%;
+    background-color: rgb(41, 41, 41);
+    color: white;
+    text-align: center;
+    line-height: 40px;
 }
