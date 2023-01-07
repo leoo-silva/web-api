@@ -29,20 +29,12 @@ namespace web.Pages
                 pessoa.SetProfissao(Request.Form["profissao"]);
                 pessoa.SetNacionalidade(Request.Form["nacionalidade"]);
                 pessoa.SetDataNascimento(DateTime.Parse(Request.Form["dataNascimento"]));
-                try
-                {
-                    pessoa.SetPeso(float.Parse(Request.Form["peso"]));
-                    pessoa.SetAltura(float.Parse(Request.Form["altura"]));
-                }
-                catch (FormatException erro)
-                {
-                    this.errorMessage = "É necessário digitar um valor numérico separados por VÍRGULA para os campos de Peso e Altura.";
-                    return;
-                }
+                pessoa.SetPeso(float.Parse(Request.Form["peso"]));
+                pessoa.SetAltura(float.Parse(Request.Form["altura"]));
             }
             catch (FormatException erro)
             {
-                this.errorMessage = "Todos os campos devem ser preenchidos.";
+                this.errorMessage = "Todos os campos devem ser preenchidos corretamente.";
                 return;
             }
             catch (Exception erro)
