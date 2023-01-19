@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using web.Entities.Pessoa.Model;
 using web.Entities.Pessoa.DAO;
-using web.Entities.PException;
 
 
 namespace web.Pages
@@ -10,7 +9,7 @@ namespace web.Pages
     public class EditarModel : PageModel
     {
         private PessoaDAO dao = new PessoaDAO();
-        public PessoaInfo pessoa = new PessoaInfo();
+        public Pessoa pessoa = new Pessoa();
         public string errorMessage = "";
         public string successMessage = "";
 
@@ -20,7 +19,7 @@ namespace web.Pages
 
             try
             {
-                pessoa = dao.SelectCPF(cpf);
+                pessoa = dao.BuscaPessoaCPF(cpf);
             }
             catch (Exception erro)
             {
@@ -32,15 +31,15 @@ namespace web.Pages
         {
             try
             {
-                pessoa.SetCpf(Request.Query["cpf"]);
-                pessoa.SetNome(Request.Form["nome"]);
-                pessoa.SetProfissao(Request.Form["profissao"]);
-                pessoa.SetNacionalidade(Request.Form["nacionalidade"]);
-                pessoa.SetDataNascimento(DateTime.Parse(Request.Form["dataNascimento"]));
+                pessoa.Cpf = Request.Form["cpf"];
+                pessoa.Nome = Request.Form["nome"];
+                pessoa.Profissao = Request.Form["profissao"];
+                pessoa.Nacionalidade = Request.Form["nacionalidade"];
+                pessoa.DataNascimento = DateTime.Parse(Request.Form["dataNascimento"]);
                 try
                 {
-                    pessoa.SetPeso(float.Parse(Request.Form["peso"]));
-                    pessoa.SetAltura(float.Parse(Request.Form["altura"]));
+                    pessoa.Peso = float.Parse(Request.Form["peso"]);
+                    pessoa.Altura = float.Parse(Request.Form["altura"]);
                 }
                 catch (FormatException erro)
                 {
@@ -78,13 +77,13 @@ namespace web.Pages
                 return;
             }
 
-            if (pessoa.DataMaior())
+            if (pessoa.ValidaDataNascimento())
             {
                 this.errorMessage = "A data de nascimento não pode ser maior que a data atual";
                 return;
             }
 
-            if (pessoa.LengthCampos())
+            if (pessoa.TamanhoCampos())
             {
                 this.errorMessage = "Algum campo não foi preenchido ou excedeu seu limite de caracteres. Tente Novamente.";
                 return;
@@ -93,7 +92,7 @@ namespace web.Pages
             // salvando dados caso não haja erro
             try
             {
-                dao.Update(pessoa);
+                dao.AlteraDados(pessoa);
             }
             catch (Exception erro)
             {

@@ -59,17 +59,17 @@ else
 
         <tbody>
             <tr>
-                <td>@Model.pessoa.GetCpf()</td>
-                <td>@Model.pessoa.GetNome()</td>
-                <td>@Model.pessoa.GetProfissao()</td>
-                <td>@Model.pessoa.GetNacionalidade()</td>
-                <td>@Model.pessoa.GetDataNascimento()</td>
-                <td>@Model.pessoa.GetIdade()</td>
-                <td>@Model.pessoa.GetPeso()</td>
-                <td>@Model.pessoa.GetAltura()</td>
+                <td>@Model.pessoa.FormatCPF()</td>
+                <td>@Model.pessoa.Nome</td>
+                <td>@Model.pessoa.Profissao</td>
+                <td>@Model.pessoa.Nacionalidade</td>
+                <td>@Model.pessoa.DataNascimento</td>
+                <td>@Model.pessoa.Idade</td>
+                <td>@Model.pessoa.Peso.ToString().Replace(".", ",")</td>
+                <td>@Model.pessoa.Altura.ToString().Replace(".", ",")</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="/Editar?cpf=@Model.pessoa.GetCpf()">Editar</a>
-                    <a class="btn btn-danger btn-sm" href="/Deletar?cpf=@Model.pessoa.GetCpf()">Deletar</a>
+                    <a class="btn btn-primary btn-sm" href="/Editar?cpf=@Model.pessoa.Cpf">Editar</a>
+                    <a class="btn btn-danger btn-sm" href="/Deletar?cpf=@Model.pessoa.Cpf">Deletar</a>
                 </td>
             </tr>
         </tbody>

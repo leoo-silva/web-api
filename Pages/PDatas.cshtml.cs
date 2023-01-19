@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using web.Entities.Pessoa.Model;
 using web.Entities.Pessoa.DAO;
-using web.Entities.PException;
 
 
 namespace web.Pages
@@ -12,9 +11,9 @@ namespace web.Pages
         private PessoaBetween pessoaBet;
         private PessoaDAO dao;
         public bool dados = false;
-        public PessoaInfo pessoa = new PessoaInfo();
+        public Pessoa pessoa = new Pessoa();
         public string errorMessage = "";
-        public List<PessoaInfo> list;
+        public List<Pessoa> list;
 
         public void OnGet()
         {
@@ -26,8 +25,8 @@ namespace web.Pages
             pessoaBet = new PessoaBetween();
             try
             {
-                pessoaBet.SetDe(DateTime.Parse(Request.Form["de"]));
-                pessoaBet.SetAte(DateTime.Parse(Request.Form["ate"]));
+                pessoaBet.de = DateTime.Parse(Request.Form["de"]);
+                pessoaBet.ate = DateTime.Parse(Request.Form["ate"]);
             }
             catch (Exception erro)
             {
@@ -38,7 +37,7 @@ namespace web.Pages
             try
             {
                 dao = new PessoaDAO();
-                this.list = dao.SelectBetween(this.pessoaBet);
+                this.list = dao.BuscandoPessoasEntreDatas(this.pessoaBet);
 
                 if (this.list.Count == 0)
                 {

@@ -70,16 +70,16 @@ else
             {
                 <tr>
                     <td>@item.FormatCPF()</td>
-                    <td>@item.GetNome()</td>
-                    <td>@item.GetProfissao()</td>
-                    <td>@item.GetNacionalidade()</td>
-                    <td>@item.GetDataNascimento()</td>
-                    <td>@item.GetIdade()</td>
-                    <td>@item.GetPeso().ToString().Replace(".", ",")</td>
-                    <td>@item.GetAltura().ToString().Replace(".", ",")</td>
+                    <td>@item.Nome</td>
+                    <td>@item.Profissao</td>
+                    <td>@item.Nacionalidade</td>
+                    <td>@item.DataNascimento</td>
+                    <td>@item.Idade</td>
+                    <td>@item.Peso.ToString().Replace(".", ",")</td>
+                    <td>@item.Altura.ToString().Replace(".", ",")</td>
                     <td>
-                        <a class="btn btn-primary btn-sm" href="/Editar?cpf=@item.GetCpf()">Editar</a>
-                        <a class="btn btn-danger btn-sm" href="/Deletar?cpf=@item.GetCpf()">Deletar</a>
+                        <a class="btn btn-primary btn-sm" href="/Editar?cpf=@item.Cpf">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="/Deletar?cpf=@item.Cpf">Deletar</a>
                     </td>
                 </tr>
             }

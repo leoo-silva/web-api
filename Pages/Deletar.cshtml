@@ -1,7 +1,6 @@
 ﻿@page
 @using web.Entities.Pessoa.DAO;
 @using web.Entities.Pessoa.Model;
-@using web.Entities.PException;
 
 
 @{
@@ -11,11 +10,11 @@
         string cpf = Request.Query["cpf"];
 
         dao = new PessoaDAO();
-        dao.Delete(cpf);
+        dao.DeletaDados(cpf);
     }
     catch (Exception erro)
     {
-        throw new PessoaException("Error: " + erro.Message);
+        throw new Exception("Error: " + erro.Message);
     }
 
     Response.Redirect("/Listagem");

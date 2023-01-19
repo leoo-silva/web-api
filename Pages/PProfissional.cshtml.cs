@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using web.Entities.Pessoa.DAO;
 using web.Entities.Pessoa.Model;
-using web.Entities.PException;
 
 
 namespace web.Pages
@@ -10,10 +9,10 @@ namespace web.Pages
     public class PProfissionalModel : PageModel
     {
         private PessoaDAO dao;
-        public PessoaInfo pessoa = new PessoaInfo();
+        public Pessoa pessoa = new Pessoa();
         public string errorMessage = "";
         public bool dados = false;
-        public List<PessoaInfo> list;
+        public List<Pessoa> list;
 
         public void OnGet()
         {
@@ -24,7 +23,7 @@ namespace web.Pages
         {
             try
             {
-                pessoa.SetProfissao(Request.Form["profissao"]);
+                pessoa.Profissao = Request.Form["profissao"];
             }
             catch (Exception erro)
             {
@@ -35,7 +34,7 @@ namespace web.Pages
             try
             {
                 dao = new PessoaDAO();
-                list = dao.SelectLike(pessoa.GetProfissao());
+                list = dao.BuscandoProfissao(pessoa.Profissao);
 
                 if (list.Count == 0)
                 {

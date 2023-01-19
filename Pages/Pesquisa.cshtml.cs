@@ -2,14 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using web.Entities.Pessoa.DAO;
 using web.Entities.Pessoa.Model;
-using web.Entities.PException;
 
 
 namespace web.Pages
 {
     public class PesquisaModel : PageModel
     {
-        public PessoaInfo pessoa = new PessoaInfo();
+        public Pessoa pessoa = new Pessoa();
         public string errorMessage = "";
         public string successMessage = "";
         public bool dados = false;
@@ -24,7 +23,7 @@ namespace web.Pages
         {
             try
             {
-                pessoa.SetCpf(Request.Form["cpf"]);
+                pessoa.Cpf = Request.Form["cpf"];
             }
             catch (Exception erro)
             {
@@ -59,7 +58,7 @@ namespace web.Pages
             try
             {
                 dao = new PessoaDAO();
-                pessoa = dao.SelectCPF(Request.Form["cpf"]);
+                pessoa = dao.BuscaPessoaCPF(Request.Form["cpf"]);
             }
             catch (Exception erro)
             {
